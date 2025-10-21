@@ -1,3 +1,5 @@
+import java.util.List;
+import java.util.ArrayList;
 /**
  * Exempel på in- och utdatahantering för maxflödeslabben i kursen
  * ADK.
@@ -5,10 +7,11 @@
  * Använder Kattio.java för in- och utläsning.
  * Se http://kattis.csc.kth.se/doc/javaio
  *
- * @author: Per Austrin
+ * @author: Per Austrin 
+ * @author: Idris Mahmud Abdi
  */
 
-public class BipRed {
+ public class BipRed {
     Kattio io;
     int x;
     int y;
@@ -35,13 +38,13 @@ public class BipRed {
     
     
     void writeFlowGraph() {
-	int v = x + y + 2, e = e, s = 0, t = x + y + 1;
+	int v = x + y + 2, numedges = e+x+y, s = 0, t = x + y + 1;
 
 	
 	// Skriv ut antal hörn och kanter samt källa och sänka
 	io.println(v);
 	io.println(s + " " + t);
-	io.println(e);
+	io.println(numedges);
 
     // Hantera source noden
     for (int i = 1; i <= x; i++) {
@@ -50,15 +53,15 @@ public class BipRed {
 	    io.println(a + " " + b + " " + c);
     }
 	for (int i = 0; i < e; ++i) {
-	    currentedge = edges.get(i);
+	    List<Integer> currentedge = edges.get(i);
         int a = currentedge.get(0), b = currentedge.get(1), c = 1;
-        io.println(a + " " + b + " " + c );
+        io.println(a + " " + b + " " + c);
 	}
 
     // Hantera sink noden 
-    for (int i = x+1; i <= y; i++) {
+    for (int i = x+1; i <= x+y; i++) {
         int a = i, b = t, c = 1;
-        io.println(a + " " + b + " " + c );
+        io.println(a + " " + b + " " + c);
     }
 	// Var noggrann med att flusha utdata när flödesgrafen skrivits ut!
 	io.flush();
@@ -76,7 +79,7 @@ public class BipRed {
 	int s = io.getInt();
 	int t = io.getInt();
 	int totflow = io.getInt();
-	int e = io.getInt();
+	e = io.getInt();
     matchededges = new ArrayList<>();
 	
 	for (int i = 0; i < e; ++i) {
@@ -95,7 +98,7 @@ public class BipRed {
     
     
     void writeBipMatchSolution() {
-	int x = x, y = y, maxMatch = matchededges.size();
+	int maxMatch = matchededges.size();
 	
 	// Skriv ut antal hörn och storleken på matchningen
 	io.println(x + " " + y);
